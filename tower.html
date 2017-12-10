@@ -6,7 +6,7 @@
 		<canvas id = "canvas" width ="900" height = "900">
 		</canvas>
 		<script>
-						const canvas = document.getElementById("canvas");
+			const canvas = document.getElementById("canvas");
 			const context = canvas.getContext("2d");
 			
 			const backImage = new Image();
@@ -43,11 +43,11 @@
 			const isPerfect = function() {
 				if (tower.length < 2) {
 					return;
-      }
+                                }
 				if (Math.abs(tower[tower.length - 1].x - tower[tower.length - 2].x) <= 10 &&
 				Math.abs(tower[tower.length - 1].width - tower[tower.length - 2].width) <=10) {
 					perfect_count ++;
-      }    
+                                }    
 				if (perfect_count >= 5) {
 					level+=4;
 					perfect_count = 0;
@@ -56,19 +56,19 @@
 			
 			const addColumnToTower = function() {
 				tower.push({
-							x: (moving_column.x <= tower[tower.length -1].x)? tower[tower.length -1].x : moving_column.x,
-							y: tower[tower.length -1].y - column_height,
-							color: moving_column.color,
-							height: column_height,
-							width: (moving_column.x <= tower[tower.length -1].x)?
-									moving_column.x + moving_column.width - tower[tower.length -1].x :
-									tower[tower.length -1].x + tower[tower.length -1].width - moving_column.x,
-							dy: move_down
+					x: (moving_column.x <= tower[tower.length -1].x)? tower[tower.length -1].x : moving_column.x,
+					y: tower[tower.length -1].y - column_height,
+					color: moving_column.color,
+					height: column_height,
+					width: (moving_column.x <= tower[tower.length -1].x)?
+							moving_column.x + moving_column.width - tower[tower.length -1].x :
+							tower[tower.length -1].x + tower[tower.length -1].width - moving_column.x,
+					dy: move_down
 				});
 				isPerfect();
 			}; 
 			
-      const updateMovingColumn = function() {
+      			const updateMovingColumn = function() {
 				moving_column.x = 0;
 				moving_column.y = tower[tower.length -1].y - column_height;
 				moving_column.color = colors[rand(colors.length)];
@@ -76,7 +76,7 @@
 				moving_column.dx = initial_speed + 1*(level/10);
 			};
 			
-      const setColumn = function() {
+      			const setColumn = function() {
 				level++;
 				addColumnToTower();
 				updateMovingColumn();	
@@ -90,7 +90,7 @@
 				if(moving_column.x + moving_column.width <= tower[tower.length -1].x || 
 					moving_column.x >= tower[tower.length -1].x + tower[tower.length -1].width ) {
 					return true;
-      }
+                                }
 				return false;
 			};
 				
@@ -115,7 +115,7 @@
 				context.fillRect(moving_column.x, moving_column.y, moving_column.width, moving_column.height);
 			};
 			
-      const resetGame = function() {
+      			const resetGame = function() {
 				level = 0;
 				perfect_count = 0;
 				tower.length = 0;
@@ -127,10 +127,10 @@
 				if(moving) {
 					if(moving_column.x + moving_column.dx + moving_column.width > canvas.width) {
 						moving_column.dx = -moving_column.dx;
-        }      	
-	      if(moving_column.x + moving_column.dx < 0) {
+        				}      	
+	      				if(moving_column.x + moving_column.dx < 0) {
 						moving_column.dx = -moving_column.dx;	
-			  }			
+			  		}			
 					moving_column.x += moving_column.dx;
 				}
 			};
@@ -141,14 +141,14 @@
 					moving_down = false;
 				}
 				for(let i = 0; i < tower.length; i++) {						
-							tower[i].y += tower[i].dy;
-					}
+					tower[i].y += tower[i].dy;
+				}
 				moving_column.y += moving_column.dy;			
 			};	
 			
 			const build_tower = function() {
 				if(moving_down)
-					makeMoveDown();
+				makeMoveDown();
 				draw();	
 				makeMove();
 				requestAnimationFrame(build_tower);
@@ -157,36 +157,35 @@
 			const initialize_tower = function() {
 				for(let i = 0; i < initial_height; i++) {
 					tower.push({
-								x: (canvas.width - column_width)/2,
-								y: (i === 0)?canvas.height - column_height : tower[i-1].y - column_height,
-								color: colors[rand(colors.length)],
-								height: column_height,
-								width: column_width,
-								dy: move_down
+						x: (canvas.width - column_width)/2,
+						y: (i === 0)?canvas.height - column_height : tower[i-1].y - column_height,
+						color: colors[rand(colors.length)],
+						height: column_height,
+						width: column_width,
+						dy: move_down
 					});
 				}
 			};
 			
 			const initialize_moving_column = function() {
 				moving_column = {
-								x: 0,
-								y: tower[tower.length - 1].y - column_height,
-								color: colors[rand(colors.length)],
-								height: column_height,
-								width: column_width,
-								dx: initial_speed,
-								dy: move_down
-							};
+							x: 0,
+							y: tower[tower.length - 1].y - column_height,
+							color: colors[rand(colors.length)],
+							height: column_height,
+							width: column_width,
+							dx: initial_speed,
+							dy: move_down
+						};
 			};
 			
 			const start_game = function() {
-				document.cookie="firstname=John; expires=Wed, 18 Dec 2023 12:00:00 GMT; path=.";
 				initialize_tower();
 				initialize_moving_column();
 				build_tower();
 			};
 			
-      start_game(); 
+      			start_game(); 
 		</script>
 	</body>
 </html>
